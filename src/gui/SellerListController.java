@@ -46,7 +46,7 @@ public class SellerListController implements Initializable, DataChangeListener{
     private SellerService service;
     
     @FXML
-    private TableView<Seller> tableViewDepartamento;
+    private TableView<Seller> tableViewVendedor;
     
     @FXML
     private TableColumn<Seller, Integer> tableColumnId;
@@ -102,7 +102,7 @@ public class SellerListController implements Initializable, DataChangeListener{
         Utils.formatTableColumnDouble(tableColumnBaseSalary, 2);
         
         Stage stage = (Stage)Main.getMainScene().getWindow();
-        tableViewDepartamento.prefHeightProperty().bind(stage.heightProperty());
+        tableViewVendedor.prefHeightProperty().bind(stage.heightProperty());
     }
     
     public void updateTableView () {
@@ -112,34 +112,34 @@ public class SellerListController implements Initializable, DataChangeListener{
         List<Seller> list = service.findAll();
         
         obsList = FXCollections.observableArrayList(list);
-        tableViewDepartamento.setItems(obsList);
+        tableViewVendedor.setItems(obsList);
         InitEditButtons();
         initRemoveButtons();
     }
     
     private void createDialogForm (Seller obj, String absoluteName, Stage parentStage) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-//            Pane pane = loader.load();
-//            
-//            SellerFormController controller = loader.getController();
-//            controller.setSeller(obj);
-//            controller.setSellerService(new SellerService());
-//            controller.subscribeDataChangeListener(this);
-//            controller.updateFormData();
-//                    
-//            
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Entre com os dados do Departamento");
-//            dialogStage.setScene(new Scene(pane));
-//            dialogStage.setResizable(false);
-//            dialogStage.initOwner(parentStage);
-//            dialogStage.initModality(Modality.WINDOW_MODAL); //trava a janela anterior
-//            dialogStage.showAndWait();
-//        }
-//        catch (IOException e) {
-//            Alerts.showAlert("IOEXception", "Error load view", e.getMessage(), Alert.AlertType.ERROR);
-//        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+            
+            SellerFormController controller = loader.getController();
+            controller.setSeller(obj);
+            controller.setSellerService(new SellerService());
+            controller.subscribeDataChangeListener(this);
+            controller.updateFormData();
+                    
+            
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Entre com os dados do Vendedor");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(parentStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL); //trava a janela anterior
+            dialogStage.showAndWait();
+        }
+        catch (IOException e) {
+            Alerts.showAlert("IOEXception", "Error load view", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     @Override
