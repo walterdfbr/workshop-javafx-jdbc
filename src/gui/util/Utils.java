@@ -6,13 +6,17 @@
 package gui.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  *
@@ -70,6 +74,33 @@ public class Utils {
             }
         };
         return cell;
+        });
+    }
+    
+    public static void formatDatePicker (DatePicker datePicker, String format) {
+        datePicker.setConverter (new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormartter = DateTimeFormatter.ofPattern(format);
+            {
+                datePicker.setPromptText (format.toLowerCase());
+            }
+            @Override
+             public String toString (LocalDate date) {
+                 if (date !=null) {
+                     return dateFormartter.format(date);
+                 }
+                 else {
+                     return "";
+                 }
+             }
+            @Override
+            public LocalDate fromString (String string) {
+                if (string !=null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormartter);
+                }
+                else {
+                    return null;
+                }
+            }
         });
     }
 }
